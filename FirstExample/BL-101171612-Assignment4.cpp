@@ -39,9 +39,9 @@ const int ROWS = ABSOLUTE_MAX_DIMENSIONS;
 const int COLS = ABSOLUTE_MAX_DIMENSIONS;
 
 // So neat and organized : )
-GLshort plane_indicies[16 * (ABSOLUTE_MAX_DIMENSIONS * ABSOLUTE_MAX_DIMENSIONS)];
-GLfloat plane_vertices[12 * (ABSOLUTE_MAX_DIMENSIONS * ABSOLUTE_MAX_DIMENSIONS)];
-GLfloat textureCoordinates[8 * (ABSOLUTE_MAX_DIMENSIONS * ABSOLUTE_MAX_DIMENSIONS)];
+GLshort* plane_indicies;// [16 * (ABSOLUTE_MAX_DIMENSIONS * ABSOLUTE_MAX_DIMENSIONS)];
+GLfloat* plane_vertices;// [12 * (ABSOLUTE_MAX_DIMENSIONS * ABSOLUTE_MAX_DIMENSIONS)];
+GLfloat* textureCoordinates;// [8 * (ABSOLUTE_MAX_DIMENSIONS * ABSOLUTE_MAX_DIMENSIONS)];
 //plane_indicies = new GLshort[16 * (ROWS * COLS)];
 //plane_vertices = new GLfloat[12 * (ROWS * COLS)];
 //textureCoordinates = new GLfloat[8 * (ROWS * COLS)];
@@ -233,9 +233,9 @@ void init(void)
 	viewID = glGetUniformLocation(program, "view");
 	// Setting ambient light
 
-	glUniform3f(glGetUniformLocation(program, "lightDirection"), lightDirection.x, lightDirection.y, lightDirection.z);
-	glUniform3f(glGetUniformLocation(program, "ambientColour"), ambientColour.x, ambientColour.y, ambientColour.z);
-	glUniform1f(glGetUniformLocation(program, "ambientStrength"), ambientStrength);
+	//glUniform3f(glGetUniformLocation(program, "lightDirection"), lightDirection.x, lightDirection.y, lightDirection.z);
+	//glUniform3f(glGetUniformLocation(program, "ambientColour"), ambientColour.x, ambientColour.y, ambientColour.z);
+	//glUniform1f(glGetUniformLocation(program, "ambientStrength"), ambientStrength);
 
 	//calcAverageNormals(cube_indices, 24, cube_vertices, 176, 8, 5);
 	// start
@@ -245,13 +245,13 @@ void init(void)
 
 	glGenBuffers(1, &ibo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(plane_indicies), plane_indicies, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float)*16*rows*cols, plane_indicies, GL_STATIC_DRAW);
 
 
 	points_vbo = 0;
 	glGenBuffers(1, &points_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, points_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(plane_vertices), plane_vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*12*rows*cols, plane_vertices, GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(0);
 
@@ -278,7 +278,7 @@ void init(void)
 
 	glGenBuffers(1, &cube_tex_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, cube_tex_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(textureCoordinates), textureCoordinates, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*8*rows*cols, textureCoordinates, GL_STATIC_DRAW);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(2);
 
@@ -408,6 +408,10 @@ int main(int argc, char** argv)
 		rows = 100;
 	if (cols > 100)
 		cols = 100;
+
+	plane_indicies = new GLshort[12 * cols * rows];
+	plane_vertices = new GLfloat[12 * cols * rows];
+	textureCoordinates = new GLfloat[8 * rows * cols];
 	// Set the indices, textureCoordinates, and vertices
 	
 	glutInit(&argc, argv);
