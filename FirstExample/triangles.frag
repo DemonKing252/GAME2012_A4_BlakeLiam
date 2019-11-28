@@ -11,8 +11,8 @@ struct Light
 	float falloffEnd;
 
 };
-vec3 totalLight;
-const int NUM_POINT_LIGHTS = 2;
+
+const int NUM_POINT_LIGHTS = 10;
 uniform sampler2D diffuseTexture;
 uniform Light pointLights[NUM_POINT_LIGHTS];
 
@@ -25,6 +25,7 @@ out vec4 frag_colour;
 uniform sampler2D texture0;
 vec3 calcPointLights()
 {
+	vec3 totalLight;
 	for (int i = 0; i < NUM_POINT_LIGHTS; i++)
 	{
 		float distance = length(pointLights[i].Position - Position_worldspace);
@@ -39,7 +40,7 @@ vec3 calcPointLights()
 			vec3 l = normalize( lightDirection );
 
 			float diff = max(dot(n, l), 0.0f);
-			vec3 diffuse = pointLights[i].Color * pointLights[i].Strength * diff * ((pointLights[i].falloffEnd - pointLights[i].falloffStart));
+			vec3 diffuse = pointLights[i].Color * pointLights[i].Strength * diff * ((pointLights[i].falloffEnd-distance) / (pointLights[i].falloffEnd - pointLights[i].falloffStart));
 			totalLight += diffuse;
 
 			///!!!! ^^^
@@ -60,11 +61,11 @@ vec3 calcPointLights()
 void main()
 {
 
-	vec4 ambient = vec4(0.5f, 0.5f, 0.5f,1.0f);
+	vec4 ambient = vec4(0.1f, 0.1f, 0.1f,1.0f);
 	
 	//frag_colour = vec4(colour, 1.0);
 	
-	//frag_colour = vec4(calcPointLights(),1) * texture(texture0, texCoord);
+	//frag_colour = ambient * texture(texture0, texCoord);
 
 	frag_colour = vec4(calcPointLights(),1) * texture(texture0, texCoord);
 	// use rgb for ambient light

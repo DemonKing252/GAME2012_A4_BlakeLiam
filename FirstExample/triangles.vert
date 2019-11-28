@@ -15,7 +15,7 @@ out vec2 texCoord;
 
 // Values that stay constant for the whole mesh.
 
-uniform mat4 mvp;
+uniform highp mat4 mvp;
 uniform highp mat4 V;
 uniform highp mat4 M;
 
@@ -28,8 +28,8 @@ void main()
 	Position_worldspace = vec3(M * vec4(vertex_position, 1));
 
 	vec3 vertexPosition_cameraspace = vec3(V * M * vec4(vertex_position, 1));
-	EyeDirection_cameraspace = vec3(0, 0, 0);
+	EyeDirection_cameraspace = vec3(0, 0, -5);
 
-	Normal_cameraspace = vec3(V * M * vec4(vertex_normal, 0));
+	Normal_cameraspace = vec3(V * M * vec4(vertex_normal, 1));
 
 }
