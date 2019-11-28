@@ -149,7 +149,7 @@ GLuint program;
 //glm::vec3 lightDirection = glm::vec3(0.0f, 0.0f, -1.0f);
 //glm::vec3 diffuseColour = glm::vec3(1.0f, 0.5f, 1.0f);
 //GLfloat diffuseStrength = 1.0f;
-glm::vec3 currentLightPos = glm::vec3(2.0f, 2.0f, 4.0f);
+glm::vec3 currentLightPos = glm::vec3(0.0f, 0.0f, 4.0f);
 
 ShaderInfo shaders[] = {
 		{ GL_VERTEX_SHADER, "triangles.vert" },
@@ -189,14 +189,14 @@ void initLights()
 	pointLights[1].falloffStartHandle = glGetUniformLocation(program, "pointLights[1].falloffStart");
 	pointLights[1].falloffEndHandle = glGetUniformLocation(program, "pointLights[1].falloffEnd");
 
-	glUniform3fv(pointLights[0].colorHandle, 1, glm::value_ptr(glm::vec3(0.0f, 0.0f, 1.0f)));
+	glUniform3fv(pointLights[0].colorHandle, 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 1.0f)));
 	//currentLightPos = glm::vec3(5, 5, 5);
 	glUniform3fv(pointLights[0].posHandle, 1, glm::value_ptr(currentLightPos));
 	glUniform1f(pointLights[0].strengthHandle, 1.0f);
 	glUniform1f(pointLights[0].falloffStartHandle, 1.0f);
 	glUniform1f(pointLights[0].falloffEndHandle, 50.0f);
 
-	glUniform3fv(pointLights[1].colorHandle, 1, glm::value_ptr(glm::vec3(0.0f, 0.0f, 1.0f)));
+	glUniform3fv(pointLights[1].colorHandle, 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 1.0f)));
 	glUniform3fv(pointLights[1].posHandle, 1, glm::value_ptr(glm::vec3(-2.0f, 4.0f, 4.0f)));
 	glUniform1f(pointLights[1].strengthHandle, 1.0f);
 	glUniform1f(pointLights[1].falloffStartHandle, 1.0f);

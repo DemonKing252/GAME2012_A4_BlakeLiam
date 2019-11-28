@@ -41,17 +41,17 @@ vec3 calcPointLights()
 
 			float diff = max(dot(n, l), 0.0f);
 			vec3 diffuse = pointLights[i].Color * pointLights[i].Strength * diff * ((pointLights[i].falloffEnd-distance) / (pointLights[i].falloffEnd - pointLights[i].falloffStart));
-			totalLight += diffuse;
+			//totalLight += diffuse;
 
 			///!!!! ^^^
 
 			// Calculate specular
-			//float specStrength = 10;
-			//vec3 E = normalize(EyeDirection_cameraspace);
-			//vec3 R = reflect(-l, n);
-			//float cosAlpha = max(dot(E, R), 0);
-			//vec3 specular = pointLights[i].Color * specStrength * pow(cosAlpha, 32) / (distance*distance);
-			//totalLight += specular;
+			float specStrength = 10;
+			vec3 E = normalize(EyeDirection_cameraspace);
+			vec3 R = reflect(-l, n);
+			float cosAlpha = max(dot(E, R), 0);
+			vec3 specular = pointLights[i].Color * specStrength * pow(cosAlpha, 32) / (distance*distance);
+			totalLight += specular;
 		}
 			
 	}
@@ -61,13 +61,13 @@ vec3 calcPointLights()
 void main()
 {
 
-	vec4 ambient = vec4(0.1f, 0.1f, 0.1f,1.0f);
+	vec4 ambient = vec4(0.2f, 0.2f, 0.2f, 0.5f);
 	
 	//frag_colour = vec4(colour, 1.0);
 	
 	//frag_colour = ambient * texture(texture0, texCoord);
-
-	frag_colour = vec4(calcPointLights(),1) * texture(texture0, texCoord);
+		
+	frag_colour = (ambient * vec4(calcPointLights(),1) * texture(texture0, texCoord));
 	// use rgb for ambient light
 
 
