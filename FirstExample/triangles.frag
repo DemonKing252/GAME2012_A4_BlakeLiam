@@ -12,8 +12,7 @@ struct Light
 
 };
 
-const int NUM_POINT_LIGHTS = 10;
-uniform sampler2D diffuseTexture;
+const int NUM_POINT_LIGHTS = 1;
 uniform Light pointLights[NUM_POINT_LIGHTS];
 
 uniform highp mat4 V;
@@ -46,7 +45,8 @@ vec3 calcPointLights()
 			///!!!! ^^^
 
 			// Calculate specular
-			float specStrength = 10;
+
+			float specStrength = 1.0f;
 			vec3 E = normalize(EyeDirection_cameraspace);
 			vec3 R = reflect(-l, n);
 			float cosAlpha = max(dot(E, R), 0);
@@ -61,13 +61,14 @@ vec3 calcPointLights()
 void main()
 {
 
-	vec4 ambient = vec4(0.2f, 0.2f, 0.2f, 0.3f);
+	vec4 ambient = vec4(0.2f, 0.2f, 0.2f, 1.0f);
+	//vec4 ambient = vec4(0.0f, 0.0f, 0.0f, 0.0f);
 	
 	//frag_colour = vec4(colour, 1.0);
 	
 	//frag_colour = ambient * texture(texture0, texCoord);
 		
-	frag_colour = (ambient * vec4(calcPointLights(),1) * texture(texture0, texCoord));
+	frag_colour =  (ambient + vec4(calcPointLights(),1)) * texture(texture0, texCoord);
 	// use rgb for ambient light
 
 

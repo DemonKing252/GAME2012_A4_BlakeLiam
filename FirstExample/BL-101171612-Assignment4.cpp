@@ -352,42 +352,42 @@ void keyDown(unsigned char key, int x, int y)
 	switch (key)
 	{
 	case 's':
-		initLights();
 		currentLightPos.z += 0.5f;
 		cameraZ += 0.5f;
+		initLights();
 		break;
 	case 'w':
-		initLights();
 		currentLightPos.z -= 0.5f;
 		cameraZ -= 0.5f;
+		initLights();
 		break;
 	case 'd':
-		initLights();
 		currentLightPos.x += 0.5f;
 		cameraX += 0.5f;
+		initLights();
 		break;
 	case 'a':
-		initLights();
 		currentLightPos.x -= 0.5f;
 		cameraX -= 0.5f;
+		initLights();
 		break;
 	// Move the light source
 	case 'i':
-		initLights();
 		currentLightPos.y += 0.5f;
+		initLights();
 		break;
 	case 'j':
-		initLights();
 		currentLightPos.x -= 0.5f;
-		break;
-	case 'l':
 		initLights();
+		break;
+	case 'l':	
 		currentLightPos.x += 0.5f;
-		//rotAngle -= 5.0f;
+		initLights();
+		rotAngle -= 5.0f;
 		break;
 	case 'k':
-		initLights();
 		currentLightPos.y -= 0.25f;
+		initLights();
 		//rotAngle += 5.0f;
 		break;
 	case 'r':
