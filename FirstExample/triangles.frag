@@ -41,7 +41,7 @@ vec3 calcPointLights()
 
 			float diff = max(dot(n, l), 0.0f);
 			vec3 diffuse = pointLights[i].Color * pointLights[i].Strength * diff * ((pointLights[i].falloffEnd-distance) / (pointLights[i].falloffEnd - pointLights[i].falloffStart));
-			//totalLight += diffuse;
+			totalLight += diffuse;
 
 			///!!!! ^^^
 
@@ -61,7 +61,7 @@ vec3 calcPointLights()
 void main()
 {
 
-	vec4 ambient = vec4(0.2f, 0.2f, 0.2f, 0.5f);
+	vec4 ambient = vec4(0.2f, 0.2f, 0.2f, 0.3f);
 	
 	//frag_colour = vec4(colour, 1.0);
 	

@@ -149,7 +149,7 @@ GLuint program;
 //glm::vec3 lightDirection = glm::vec3(0.0f, 0.0f, -1.0f);
 //glm::vec3 diffuseColour = glm::vec3(1.0f, 0.5f, 1.0f);
 //GLfloat diffuseStrength = 1.0f;
-glm::vec3 currentLightPos = glm::vec3(0.0f, 0.0f, 4.0f);
+glm::vec3 currentLightPos = glm::vec3(0.0f, 0.0f, 5.0f);
 
 ShaderInfo shaders[] = {
 		{ GL_VERTEX_SHADER, "triangles.vert" },
@@ -323,7 +323,7 @@ void display(void)
 	glBindVertexArray(cube_vao);
 	glBindTexture(GL_TEXTURE_2D, cube_tex);
 
-	//static GLfloat angle = 0.0f;
+	static GLfloat angle = 0.0f;
 	// Draw the Plane (up to 100 by 100)
 	transformObject(1.0f, Y_AXIS, 0.0f, glm::vec3(0.0f, 0.0f, 0.0f));
 	glDrawElements(GL_QUADS, 12 * (rows * cols), GL_UNSIGNED_SHORT, 0);
@@ -351,29 +351,33 @@ void keyDown(unsigned char key, int x, int y)
 	switch (key)
 	{
 	case 's':
+		currentLightPos.z += 0.5f;
 		cameraZ += 0.5f;
 		break;
 	case 'w':
+		currentLightPos.z -= 0.5f;
 		cameraZ -= 0.5f;
 		break;
 	case 'd':
+		currentLightPos.x += 0.5f;
 		cameraX += 0.5f;
 		break;
 	case 'a':
+		currentLightPos.x -= 0.5f;
 		cameraX -= 0.5f;
 		break;
 	case 'i':
-		currentLightPos.y += 1.0f;
+		currentLightPos.y += 0.25f;
 		break;
 	case 'j':
-		currentLightPos.x -= 1.0f;
+		currentLightPos.x -= 0.25f;
 		break;
 	case 'l':
-		currentLightPos.x += 1.0f;
+		currentLightPos.x += 0.25f;
 		//rotAngle -= 5.0f;
 		break;
 	case 'k':
-		currentLightPos.y -= 1.0f;
+		currentLightPos.y -= 0.25f;
 		//rotAngle += 5.0f;
 		break;
 	case 'r':
