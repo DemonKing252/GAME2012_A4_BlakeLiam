@@ -279,9 +279,11 @@ void init(void)
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(2);
 
+	initLights();
+
 	glEnable(GL_DEPTH_TEST);
 }
-
+float angle = 0.0f;
 //---------------------------------------------------------------------
 //x
 // transformModel
@@ -307,8 +309,6 @@ void transformObject(float scale, glm::vec3 rotationAxis, float rotationAngle, g
 //
 void display(void)
 {
-	initLights();
-
 	view = glm::lookAt(// 25 37.5
 		glm::vec3(cameraX, cameraY, cameraZ + 10.0),		// Camera pos in World Space
 		glm::vec3(0, 0, 0),	// This is necessary, we need to move the camera origin with the camera pos
@@ -323,9 +323,9 @@ void display(void)
 	glBindVertexArray(cube_vao);
 	glBindTexture(GL_TEXTURE_2D, cube_tex);
 
-	static GLfloat angle = 0.0f;
+	//static GLfloat angle = 0.0f;
 	// Draw the Plane (up to 100 by 100)
-	transformObject(1.0f, Y_AXIS, 0.0f, glm::vec3(0.0f, 0.0f, 0.0f));
+	transformObject(1.0f, Y_AXIS, angle, glm::vec3(0.0f, 0.0f, 0.0f));
 	glDrawElements(GL_QUADS, 12 * (rows * cols), GL_UNSIGNED_SHORT, 0);
 
 	//transformObject(1.0f, Y_AXIS, 90.0f, glm::vec3(-1.0f, 0.0f, -1.0f));
@@ -345,38 +345,48 @@ void timer(int id)
 	glutTimerFunc(33, timer, 0);
 }
 
+
 void keyDown(unsigned char key, int x, int y)
 {
 	// Orthographic.
 	switch (key)
 	{
 	case 's':
+		initLights();
 		currentLightPos.z += 0.5f;
 		cameraZ += 0.5f;
 		break;
 	case 'w':
+		initLights();
 		currentLightPos.z -= 0.5f;
 		cameraZ -= 0.5f;
 		break;
 	case 'd':
+		initLights();
 		currentLightPos.x += 0.5f;
 		cameraX += 0.5f;
 		break;
 	case 'a':
+		initLights();
 		currentLightPos.x -= 0.5f;
 		cameraX -= 0.5f;
 		break;
+	// Move the light source
 	case 'i':
-		currentLightPos.y += 0.25f;
+		initLights();
+		currentLightPos.y += 0.5f;
 		break;
 	case 'j':
-		currentLightPos.x -= 0.25f;
+		initLights();
+		currentLightPos.x -= 0.5f;
 		break;
 	case 'l':
-		currentLightPos.x += 0.25f;
+		initLights();
+		currentLightPos.x += 0.5f;
 		//rotAngle -= 5.0f;
 		break;
 	case 'k':
+		initLights();
 		currentLightPos.y -= 0.25f;
 		//rotAngle += 5.0f;
 		break;
@@ -385,6 +395,13 @@ void keyDown(unsigned char key, int x, int y)
 		break;
 	case 'f':
 		cameraY -= 0.5f;
+		break;
+	// Rotate the object
+	case 't':
+		angle -= 0.5f;
+		break;
+	case 'y':
+		angle += 0.5f;
 		break;
 	}
 }
