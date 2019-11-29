@@ -149,7 +149,7 @@ GLuint program;
 //glm::vec3 lightDirection = glm::vec3(0.0f, 0.0f, -1.0f);
 //glm::vec3 diffuseColour = glm::vec3(1.0f, 0.5f, 1.0f);
 //GLfloat diffuseStrength = 1.0f;
-glm::vec3 currentLightPos = glm::vec3(0.0f, 0.0f, 5.0f);
+glm::vec3 currentLightPos = glm::vec3(0.0f, 1.5f, 5.0f);
 
 ShaderInfo shaders[] = {
 		{ GL_VERTEX_SHADER, "triangles.vert" },
@@ -222,6 +222,7 @@ void init(void)
 
 	//calcAverageNormals(cube_indices, 24, cube_vertices, 176, 8, 5);
 	// start
+	//glEnable(GL_DEPTH_TEST);
 	cube_vao = 0;
 	glGenVertexArrays(1, &cube_vao);
 	glBindVertexArray(cube_vao);
@@ -278,10 +279,13 @@ void init(void)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(12 * rows*cols), normals, GL_STATIC_DRAW); // This will not work
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(2);
+	
+	glEnable(GL_DEPTH_TEST);
+	
 
 	initLights();
 
-	glEnable(GL_DEPTH_TEST);
+	
 }
 float angle = 0.0f;
 //---------------------------------------------------------------------
@@ -309,6 +313,8 @@ void transformObject(float scale, glm::vec3 rotationAxis, float rotationAngle, g
 //
 void display(void)
 {
+
+
 	view = glm::lookAt(// 25 37.5
 		glm::vec3(cameraX, cameraY, cameraZ + 10.0),		// Camera pos in World Space
 		glm::vec3(0, 0, 0),	// This is necessary, we need to move the camera origin with the camera pos
@@ -327,9 +333,6 @@ void display(void)
 	// Draw the Plane (up to 100 by 100)
 	transformObject(1.0f, Y_AXIS, angle, glm::vec3(0.0f, 0.0f, 0.0f));
 	glDrawElements(GL_QUADS, 12 * (rows * cols), GL_UNSIGNED_SHORT, 0);
-
-	//transformObject(1.0f, Y_AXIS, 90.0f, glm::vec3(-1.0f, 0.0f, -1.0f));
-	//glDrawElements(GL_QUADS, 12 * (rows * cols), GL_UNSIGNED_SHORT, 0);
 
 	glutSwapBuffers(); // Instead of double buffering.
 }
