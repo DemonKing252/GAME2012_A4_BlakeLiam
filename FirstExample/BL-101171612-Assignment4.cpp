@@ -1,10 +1,10 @@
 ﻿//***************************************************************************
-// BL-101171612-Assignment4.cpp by Liam Blake (C) 2018 All Rights Reserved.
+// BL-101171612-Assignment4.cpp by Liam Blake (C) 2019 All Rights Reserved.
 //
 // Assignment 4 submission.
 //
 // Description:
-// Press F5 to see a rubix cube with lighting effects!	
+// Press F5 to see a 7x7 plane with dynamic lighting effects!
 //
 //*****************************************************************************
 using namespace std;

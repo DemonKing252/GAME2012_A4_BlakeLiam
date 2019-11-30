@@ -12,7 +12,7 @@ struct Light
 
 };
 
-const int NUM_POINT_LIGHTS = 1;
+const int NUM_POINT_LIGHTS = 2;
 uniform Light pointLights[NUM_POINT_LIGHTS];
 
 uniform highp mat4 V;
