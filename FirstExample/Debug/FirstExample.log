@@ -1,20 +1,20 @@
 ﻿  BL-101171612-Assignment4.cpp
-c:\users\101171612\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(420): warning C4244: '=': conversion from 'int' to 'GLfloat', possible loss of data
-c:\users\101171612\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(421): warning C4244: '=': conversion from 'int' to 'GLfloat', possible loss of data
-c:\users\101171612\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(451): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\101171612\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(452): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\101171612\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(455): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\101171612\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(456): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\101171612\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(459): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\101171612\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(460): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\101171612\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(463): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\101171612\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(464): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\101171612\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(493): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\101171612\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(494): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\101171612\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(496): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\101171612\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(497): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\101171612\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(499): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\101171612\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(500): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\101171612\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(502): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\101171612\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(503): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-  FirstExample.vcxproj -> C:\Users\101171612\Documents\GitHub\GAME2012_A4_BlakeLiam\Debug\FirstExample.exe
+c:\users\owner\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(391): warning C4244: '=': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\owner\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(392): warning C4244: '=': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\owner\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(422): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\owner\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(423): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\owner\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(426): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\owner\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(427): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\owner\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(430): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\owner\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(431): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\owner\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(434): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\owner\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(435): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\owner\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(464): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\owner\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(465): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\owner\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(467): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\owner\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(468): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\owner\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(470): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\owner\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(471): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\owner\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(473): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\owner\documents\github\game2012_a4_blakeliam\firstexample\bl-101171612-assignment4.cpp(474): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+  FirstExample.vcxproj -> C:\Users\Owner\Documents\GitHub\GAME2012_A4_BlakeLiam\Debug\FirstExample.exe

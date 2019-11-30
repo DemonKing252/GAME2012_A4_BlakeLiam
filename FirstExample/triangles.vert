@@ -18,7 +18,7 @@ out vec2 texCoord;
 uniform highp mat4 mvp;
 uniform highp mat4 V;
 uniform highp mat4 M;
-
+uniform highp mat4 projection;
 
 void main()
 {

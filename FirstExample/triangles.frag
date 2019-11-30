@@ -46,7 +46,7 @@ vec3 calcPointLights()
 
 			// Calculate specular
 
-			float specStrength = 1.0f;
+			float specStrength = 0.5f;
 			vec3 E = normalize(EyeDirection_cameraspace);
 			vec3 R = reflect(-l, n);
 			float cosAlpha = max(dot(E, R), 0);

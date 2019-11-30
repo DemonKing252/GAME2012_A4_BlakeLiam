@@ -34,7 +34,7 @@ float rotAngle = 0.0f;
 float osH = 0.0f, osV = 0.0f, scrollSpd = 0.25f;
 int deltaTime, currentTime, lastTime = 0;
 glm::mat4 model, view, projection, MVP;
-GLfloat cameraX = 0, cameraY = 0, cameraZ = -5;
+GLfloat cameraX = 0, cameraY = 0, cameraZ = 0.0f;
 #define ABSOLUTE_MAX_DIMENSIONS 100		// Don't let the player enter more than 100.
 int rows, cols;
 const int ROWS = ABSOLUTE_MAX_DIMENSIONS;
@@ -44,7 +44,7 @@ const int COLS = ABSOLUTE_MAX_DIMENSIONS;
 GLshort* plane_indicies;// [16 * (ABSOLUTE_MAX_DIMENSIONS * ABSOLUTE_MAX_DIMENSIONS)];
 GLfloat* plane_vertices;// [12 * (ABSOLUTE_MAX_DIMENSIONS * ABSOLUTE_MAX_DIMENSIONS)];
 GLfloat* textureCoordinates;
-
+GLfloat angle = 0.0f;
 void CalculateNormals(GLshort* indices, unsigned short intdiceCount, GLfloat* vertices, unsigned int verticeCount, unsigned int vLength, float * normals)
 {
 	for (int i = 0; i < intdiceCount / 3; i += 3)
@@ -149,7 +149,7 @@ GLuint program;
 //glm::vec3 lightDirection = glm::vec3(0.0f, 0.0f, -1.0f);
 //glm::vec3 diffuseColour = glm::vec3(1.0f, 0.5f, 1.0f);
 //GLfloat diffuseStrength = 1.0f;
-glm::vec3 currentLightPos = glm::vec3(0.0f, 1.5f, 5.0f);
+glm::vec3 currentLightPos = glm::vec3(0.0f, 1.25f, 4.0f);
 
 ShaderInfo shaders[] = {
 		{ GL_VERTEX_SHADER, "triangles.vert" },
@@ -214,15 +214,6 @@ void init(void)
 	modelID = glGetUniformLocation(program, "M");
 	projID = glGetUniformLocation(program, "projection");
 	viewID = glGetUniformLocation(program, "V");
-	// Setting ambient light
-
-	//glUniform3f(glGetUniformLocation(program, "lightDirection"), lightDirection.x, lightDirection.y, lightDirection.z);
-	//glUniform3f(glGetUniformLocation(program, "ambientColour"), ambientColour.x, ambientColour.y, ambientColour.z);
-	//glUniform1f(glGetUniformLocation(program, "ambientStrength"), ambientStrength);
-
-	//calcAverageNormals(cube_indices, 24, cube_vertices, 176, 8, 5);
-	// start
-	//glEnable(GL_DEPTH_TEST);
 	cube_vao = 0;
 	glGenVertexArrays(1, &cube_vao);
 	glBindVertexArray(cube_vao);
@@ -238,15 +229,6 @@ void init(void)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 12 * rows*cols, plane_vertices, GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(0);
-
-	//cube_colours_vbo = 0;
-	//glGenBuffers(1, &cube_colours_vbo);
-	//glBindBuffer(GL_ARRAY_BUFFER, cube_colours_vbo);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(colours2), colours2, GL_STATIC_DRAW);
-	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	//glEnableVertexAttribArray(1);
-
-
 	rubicksCubeTexture = SOIL_load_image("bonusTexture.png", &width, &height, 0, SOIL_LOAD_RGB);
 
 
@@ -266,13 +248,6 @@ void init(void)
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(1);
 
-
-	//glGenBuffers(1, &cube_tex_vbo);
-	//glBindBuffer(GL_ARRAY_BUFFER, cube_tex_vbo);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(float)*8*rows*cols, textureCoordinates, GL_STATIC_DRAW);
-	//glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
-	//glEnableVertexAttribArray(1);
-
 	normals_vbo = 0;
 	glGenBuffers(1, &normals_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, normals_vbo);
@@ -287,7 +262,6 @@ void init(void)
 
 	
 }
-float angle = 0.0f;
 //---------------------------------------------------------------------
 //x
 // transformModel
@@ -297,7 +271,7 @@ void transformObject(float scale, glm::vec3 rotationAxis, float rotationAngle, g
 	Model = glm::mat4(1.0f);
 	Model = glm::translate(Model, translation);
 	Model = glm::rotate(Model, glm::radians(rotationAngle), rotationAxis);
-	Model = glm::scale(Model, glm::vec3(scale));
+	Model = glm::scale(Model, glm::vec3(1.5f*scale, scale, scale));
 	model = projection * view * Model;
 	glUniformMatrix4fv(modelID, 1, GL_FALSE, &model[0][0]);
 	glUniformMatrix4fv(projID, 1, GL_FALSE, &projection[0][0]);
@@ -313,11 +287,9 @@ void transformObject(float scale, glm::vec3 rotationAxis, float rotationAngle, g
 //
 void display(void)
 {
-
-
 	view = glm::lookAt(// 25 37.5
-		glm::vec3(cameraX, cameraY, cameraZ + 10.0),		// Camera pos in World Space
-		glm::vec3(0, 0, 0),	// This is necessary, we need to move the camera origin with the camera pos
+		glm::vec3(cameraX, cameraY, cameraZ + 4.0f),		// Camera pos in World Space
+		glm::vec3(cameraX, cameraY, cameraZ),	// This is necessary, we need to move the camera origin with the camera pos
 		glm::vec3(0, 1, 0)		// Head is up (set to 0,-1,0 to look upside-down)
 	);
 	projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 300.0f);
@@ -328,10 +300,9 @@ void display(void)
 	// Change vaos
 	glBindVertexArray(cube_vao);
 	glBindTexture(GL_TEXTURE_2D, cube_tex);
-
 	//static GLfloat angle = 0.0f;
 	// Draw the Plane (up to 100 by 100)
-	transformObject(1.0f, Y_AXIS, angle, glm::vec3(0.0f, 0.0f, 0.0f));
+	transformObject(1.0f, Y_AXIS, 0.0f, glm::vec3(0.0f, 0.0f, 0.0f));
 	glDrawElements(GL_QUADS, 12 * (rows * cols), GL_UNSIGNED_SHORT, 0);
 
 	glutSwapBuffers(); // Instead of double buffering.
@@ -357,35 +328,35 @@ void keyDown(unsigned char key, int x, int y)
 	case 's':
 		currentLightPos.z += 0.5f;
 		cameraZ += 0.5f;
-		initLights();
+		glUniform3fv(pointLights[0].posHandle, 1, glm::value_ptr(currentLightPos));
 		break;
 	case 'w':
 		currentLightPos.z -= 0.5f;
 		cameraZ -= 0.5f;
-		initLights();
+		glUniform3fv(pointLights[0].posHandle, 1, glm::value_ptr(currentLightPos));
 		break;
 	case 'd':
 		currentLightPos.x += 0.5f;
 		cameraX += 0.5f;
-		initLights();
+		glUniform3fv(pointLights[0].posHandle, 1, glm::value_ptr(currentLightPos));
 		break;
 	case 'a':
 		currentLightPos.x -= 0.5f;
 		cameraX -= 0.5f;
-		initLights();
+		glUniform3fv(pointLights[0].posHandle, 1, glm::value_ptr(currentLightPos));
 		break;
 	// Move the light source
 	case 'i':
 		currentLightPos.y += 0.5f;
-		initLights();
+		glUniform3fv(pointLights[0].posHandle, 1, glm::value_ptr(currentLightPos));
 		break;
 	case 'j':
 		currentLightPos.x -= 0.5f;
-		initLights();
+		glUniform3fv(pointLights[0].posHandle, 1, glm::value_ptr(currentLightPos));
 		break;
 	case 'l':	
 		currentLightPos.x += 0.5f;
-		initLights();
+		glUniform3fv(pointLights[0].posHandle, 1, glm::value_ptr(currentLightPos));
 		rotAngle -= 5.0f;
 		break;
 	case 'k':
