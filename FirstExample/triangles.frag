@@ -2,6 +2,8 @@
 in vec3 Position_worldspace;
 in vec3 Normal_cameraspace;
 in vec3 EyeDirection_cameraspace;
+in vec3 normal;
+in vec3 fragPos;
 struct Light
 {
 	vec3 Color;
@@ -46,7 +48,7 @@ vec3 calcPointLights()
 
 			// Calculate specular
 
-			float specStrength = 0.5f;
+			float specStrength = 7.5f;
 			vec3 E = normalize(EyeDirection_cameraspace);
 			vec3 R = reflect(-l, n);
 			float cosAlpha = max(dot(E, R), 0);

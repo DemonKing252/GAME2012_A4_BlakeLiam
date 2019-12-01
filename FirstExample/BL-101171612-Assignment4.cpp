@@ -266,18 +266,18 @@ void init(void)
 //x
 // transformModel
 //
-void transformObject(float scale, glm::vec3 rotationAxis, float rotationAngle, glm::vec3 translation) {
+void transformObject(glm::vec3 scale, glm::vec3 rotationAxis, float rotationAngle, glm::vec3 translation) {
 	glm::mat4 Model;
 	Model = glm::mat4(1.0f);
 	Model = glm::translate(Model, translation);
 	Model = glm::rotate(Model, glm::radians(rotationAngle), rotationAxis);
-	Model = glm::scale(Model, glm::vec3(1.5f*scale, scale, scale));
-	model = projection * view * Model;
-	glUniformMatrix4fv(modelID, 1, GL_FALSE, &model[0][0]);
+	Model = glm::scale(Model, scale);
+	//Model = projection * view * Model;
+	glUniformMatrix4fv(modelID, 1, GL_FALSE, &Model[0][0]);
 	glUniformMatrix4fv(projID, 1, GL_FALSE, &projection[0][0]);
 	glUniformMatrix4fv(viewID, 1, GL_FALSE, &view[0][0]);
-
-	MVP = projection * view * model;
+		
+	MVP = projection * view * Model;
 	glUniformMatrix4fv(matrixID, 1, GL_FALSE, &MVP[0][0]);
 }
 
@@ -288,22 +288,23 @@ void transformObject(float scale, glm::vec3 rotationAxis, float rotationAngle, g
 void display(void)
 {
 	view = glm::lookAt(// 25 37.5
-		glm::vec3(cameraX, cameraY, cameraZ + 4.0f),		// Camera pos in World Space
+		glm::vec3(cameraX, cameraY, cameraZ + 3.0f),		// Camera pos in World Space
 		glm::vec3(cameraX, cameraY, cameraZ),	// This is necessary, we need to move the camera origin with the camera pos
 		glm::vec3(0, 1, 0)		// Head is up (set to 0,-1,0 to look upside-down)
 	);
-	projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 300.0f);
+	projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(53.0f / 255.0f, 81.0f / 255.0f, 92.0f / 255.0f, 1.0f);
 
-	// Change vaos
-	glBindVertexArray(cube_vao);
-	glBindTexture(GL_TEXTURE_2D, cube_tex);
-	//static GLfloat angle = 0.0f;
+	static GLfloat angle = 0.0f;
+
 	// Draw the Plane (up to 100 by 100)
-	transformObject(1.0f, Y_AXIS, 0.0f, glm::vec3(0.0f, 0.0f, 0.0f));
+	transformObject(glm::vec3(1.0f), Y_AXIS, angle, glm::vec3(0.0f, 0.0f, 0.0f));
 	glDrawElements(GL_QUADS, 12 * (rows * cols), GL_UNSIGNED_SHORT, 0);
+
+	//transformObject(1.0f, Y_AXIS, 0.0f, glm::vec3(0.0f, 0.0f, -3.0f));
+	//glDrawElements(GL_QUADS, 12 * (rows * cols), GL_UNSIGNED_SHORT, 0);
 
 	glutSwapBuffers(); // Instead of double buffering.
 }
@@ -326,24 +327,16 @@ void keyDown(unsigned char key, int x, int y)
 	switch (key)
 	{
 	case 's':
-		currentLightPos.z += 0.5f;
 		cameraZ += 0.5f;
-		glUniform3fv(pointLights[0].posHandle, 1, glm::value_ptr(currentLightPos));
 		break;
 	case 'w':
-		currentLightPos.z -= 0.5f;
 		cameraZ -= 0.5f;
-		glUniform3fv(pointLights[0].posHandle, 1, glm::value_ptr(currentLightPos));
 		break;
 	case 'd':
-		currentLightPos.x += 0.5f;
 		cameraX += 0.5f;
-		glUniform3fv(pointLights[0].posHandle, 1, glm::value_ptr(currentLightPos));
 		break;
 	case 'a':
-		currentLightPos.x -= 0.5f;
 		cameraX -= 0.5f;
-		glUniform3fv(pointLights[0].posHandle, 1, glm::value_ptr(currentLightPos));
 		break;
 	// Move the light source
 	case 'i':

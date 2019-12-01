@@ -12,6 +12,8 @@ out vec3 EyeDirection_cameraspace;
 
 out vec3 colour;
 out vec2 texCoord;
+out vec3 normal;
+out vec3 fragPos;
 
 // Values that stay constant for the whole mesh.
 
@@ -24,6 +26,10 @@ void main()
 {
 	texCoord = vertex_texture;
 	gl_Position = mvp * vec4(vertex_position, 1.0);
+
+	normal = mat3(transpose(inverse(M))) * vertex_normal;
+	fragPos = (M * vec4(vertex_position, 1.0f)).xyz;
+
 
 	Position_worldspace = vec3(M * vec4(vertex_position, 1));
 
